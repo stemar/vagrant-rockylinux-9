@@ -1,0 +1,7 @@
+# https://mariadb.org/download/?t=repo-config&d=Red+Hat+EL+9+%28x86_64%29&v=10.6&r_m=rackspace
+[mariadb]
+name=MariaDB
+baseurl=https://mirror.rackspace.com/mariadb/yum/10.6/rhel9-amd64
+module_hotfixes=1
+gpgkey=https://mirror.rackspace.com/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck=1

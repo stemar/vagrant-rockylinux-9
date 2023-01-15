@@ -1,0 +1,37 @@
+---
+:machine:
+  # https://app.vagrantup.com/bento/boxes/rockylinux-9
+  :box: bento/rockylinux-9 # 64GB HDD
+  :memory: 3072 # 3GB RAM
+  :cpus: 1
+  :hostname: rockylinux-9
+  :timezone: Canada/Pacific
+
+:forwarded_ports:
+# SSH
+- :id: ssh
+  :host: 2200
+  :guest: 22
+# HTTP
+- :host: 8000
+  :guest: 80
+- :host: 3000
+  :guest: 3000
+# MySQL
+- :host: 33060
+  :guest: 3306
+
+:synced_folder:
+  :host: ~/Code
+  :guest: /home/vagrant/Code
+
+:copy_files:
+- :source: ~/.ssh
+  :destination: ~/.ssh
+- :source: ~/.gitconfig
+  :destination: ~/.gitconfig
+
+:php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+
+# :ruby_version: 3.1.3
+...

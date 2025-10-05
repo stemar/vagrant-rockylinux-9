@@ -1,4 +1,5 @@
 timedatectl set-timezone $TIMEZONE
+timedatectl set-local-rtc 0
 
 echo '==> Setting '$(timedatectl | grep 'Time zone:' | xargs)
 
@@ -73,15 +74,15 @@ sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htacces
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
-    mkdir -p /usr/share/adminer/plugins
+    mkdir -p /usr/share/adminer/adminer-plugins
     curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/latest-en.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php -o /usr/share/adminer/plugins/plugin.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/plugins/login-password-less.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/plugins/dump-json.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/plugins/pretty-json-column.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/adminer-plugins/login-password-less.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/adminer-plugins/dump-json.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/adminer-plugins/pretty-json-column.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
 cp /vagrant/config/adminer.php /usr/share/adminer/adminer.php
+cp /vagrant/config/adminer-plugins.php /usr/share/adminer/adminer-plugins.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
 
@@ -89,7 +90,7 @@ if [ $RUBY_VERSION ]; then
 
     echo '==> Installing rbenv'
 
-    dnf -q -y install gnupg2 zlib zlib-devel gcc-c++ patch readline readline-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison tar sqlite-devel &>/dev/null
+    dnf -q -y install gem gnupg2 zlib zlib-devel gcc-c++ patch readline readline-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison tar sqlite-devel &>/dev/null
     if [ ! -d /home/vagrant/.rbenv ]; then
         git clone -q https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
     fi

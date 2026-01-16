@@ -214,6 +214,8 @@ php -i
 
 ### Browse local websites
 
+_If needed, replace the port matching the host HTTP port in `settings.yaml`._
+
 #### Check localhost
 
 <http://localhost:8000>
@@ -229,7 +231,7 @@ You see the default Rocky Linux "HTTP Server Test Page".
 
 #### Check your domain(s)
 
-Replace `domain.com` with your domain and your custom forwarded port number.
+Replace `domain.com` with your domain.
 
 <http://domain.com.localhost:8000>
 

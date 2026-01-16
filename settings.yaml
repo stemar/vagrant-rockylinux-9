@@ -5,25 +5,24 @@
   :memory: 3072 # 3GB RAM
   :cpus: 1
   :hostname: rockylinux-9
-  :timezone: Canada/Pacific
+  :timezone: America/Los_Angeles
 
 :forwarded_ports:
-# SSH
-- :id: ssh
-  :host: 2200
-  :guest: 22
-# HTTP
-- :host: 8000
-  :guest: 80
-- :host: 3000
-  :guest: 3000
-# MySQL
-- :host: 33060
-  :guest: 3306
+  - :id: ssh
+    :host: 2200
+    :guest: 22
+  - :id: http
+    :host: 8000
+    :guest: 80
+  - :id: mysql
+    :host: 33060
+    :guest: 3306
 
 :synced_folder:
   :host: ~/Code
   :guest: /home/vagrant/Code
+  :owner: vagrant
+  :group: vagrant
 
 :copy_files:
 - :source: ~/.ssh

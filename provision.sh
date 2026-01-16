@@ -140,7 +140,8 @@ systemctl restart mariadb
 systemctl enable mariadb
 mysqladmin -u root password ""
 
-echo '==> Versions:'
+echo
+echo '==> Stack versions <=='
 
 cat /etc/redhat-release
 openssl version

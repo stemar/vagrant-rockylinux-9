@@ -121,6 +121,7 @@ fi
 
 echo '==> Adding HTTP service to firewall'
 
+sudo setenforce Permissive
 firewall-cmd --add-service=http --permanent &>/dev/null
 firewall-cmd --reload &>/dev/null
 

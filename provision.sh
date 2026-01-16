@@ -21,24 +21,13 @@ dnf -q -y install git &>/dev/null
 
 echo '==> Installing Apache'
 
-dnf -q -y install httpd mod_ssl openssl &>/dev/null
+dnf -q -y install httpd &>/dev/null
 usermod -a -G apache vagrant
 chown -R root:apache /var/log/httpd
 cp /vagrant/config/localhost.conf /etc/httpd/conf.d/localhost.conf
 cp /vagrant/config/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/virtualhost.conf
-
-echo '==> Fixing localhost SSL certificate'
-
-if [ ! -f /etc/pki/tls/certs/localhost.crt ]; then
-    cp /vagrant/config/localhost.crt /etc/pki/tls/certs/localhost.crt
-    chmod u=rw /etc/pki/tls/certs/localhost.crt
-fi
-if [ ! -f /etc/pki/tls/private/localhost.key ]; then
-    cp /vagrant/config/localhost.key /etc/pki/tls/private/localhost.key
-    chmod u=rw /etc/pki/tls/private/localhost.key
-fi
 
 echo '==> Setting MariaDB 10.6 repository'
 
@@ -123,7 +112,6 @@ echo '==> Adding HTTP service to firewall'
 
 sudo setenforce Permissive
 firewall-cmd --add-service=http --permanent &>/dev/null
-firewall-cmd --add-service=https --permanent &>/dev/null
 firewall-cmd --reload &>/dev/null
 
 echo '==> Testing Apache configuration'

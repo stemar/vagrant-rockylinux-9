@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.3 - 2026-01-16
+
+### Added
+
+- Forwarded port 3000 in `settings.yaml`
+
+### Removed
+
+- SSL certificates and this VM hosting HTTPS localhost
+
 ## 1.0.2 - 2026-01-15
 
 ### Added

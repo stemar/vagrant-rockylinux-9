@@ -14,6 +14,9 @@
   - :id: http
     :host: 8000
     :guest: 80
+  - :id: http3000
+    :host: 3000
+    :guest: 3000
   - :id: mysql
     :host: 33060
     :guest: 3306

@@ -27,7 +27,7 @@ chown -R root:apache /var/log/httpd
 cp /vagrant/config/localhost.conf /etc/httpd/conf.d/localhost.conf
 cp /vagrant/config/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost.conf
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/virtualhost.conf
 
 echo '==> Fixing localhost SSL certificate'
 
@@ -84,7 +84,7 @@ fi
 cp /vagrant/config/adminer.php /usr/share/adminer/adminer.php
 cp /vagrant/config/adminer-plugins.php /usr/share/adminer/adminer-plugins.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/adminer.conf
 
 if [ $RUBY_VERSION ]; then
 
@@ -118,6 +118,11 @@ if [ $RUBY_VERSION ]; then
     gem install -q --silent bundler
 
 fi
+
+echo '==> Adding HTTP service to firewall'
+
+firewall-cmd --add-service=http --permanent &>/dev/null
+firewall-cmd --reload &>/dev/null
 
 echo '==> Testing Apache configuration'
 

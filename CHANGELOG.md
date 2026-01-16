@@ -2,6 +2,10 @@
 
 ## 1.0.2 - 2026-01-15
 
+### Added
+
+- Added `setenforce Permissive` and firewall commands to unblock localhost websites.
+
 ### Changed
 
 - Updated YAML array format in `settings.yaml`.

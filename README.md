@@ -191,7 +191,6 @@ cat /etc/hosts
 cat /etc/httpd/conf/httpd.conf
 ll /etc/httpd/conf.d
 cat /etc/httpd/conf.d/php.conf
-cat /etc/httpd/conf.d/ssl.conf
 cat /etc/httpd/conf.d/localhost.conf
 cat /etc/httpd/conf.d/virtualhost.conf
 cat /etc/httpd/conf.d/adminer.conf

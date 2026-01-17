@@ -9,7 +9,7 @@
 ### Removed
 
 - Removed SSL certificates and this VM hosting HTTPS localhost
-- Removed `:id` to all `:forwarded_ports`.
+- Removed `:id` to all `:forwarded_ports` except ssh.
 
 ## 1.0.2 - 2026-01-15
 

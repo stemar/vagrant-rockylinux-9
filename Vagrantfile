@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     vb.cpus   = settings[:machine][:cpus]
   end
 
-  host_http_port = settings[:forwarded_ports].find{|port| port[:id] == "http"}[:host]
+  host_http_port = settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host]
   settings[:forwarded_ports].each do |port_options|
     config.vm.network :forwarded_port, **port_options
   end

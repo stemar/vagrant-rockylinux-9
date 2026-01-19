@@ -75,42 +75,11 @@ cp /vagrant/config/adminer-plugins.php /usr/share/adminer/adminer-plugins.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
 sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/adminer.conf
 
-if [ $RUBY_VERSION ]; then
+echo '==> Installing Ruby & irb'
 
-    echo '==> Installing rbenv'
-
-    dnf -q -y install gem gnupg2 zlib zlib-devel gcc-c++ patch readline readline-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison tar sqlite-devel &>/dev/null
-    if [ ! -d /home/vagrant/.rbenv ]; then
-        git clone -q https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
-    fi
-    export RBENV_ROOT="/home/vagrant/.rbenv"
-    if ! grep -q "$RBENV_ROOT" <<< "$PATH"; then
-        export PATH="${RBENV_ROOT}/bin:${PATH}"
-        eval "$(rbenv init -)"
-    fi
-    if [ ! -d /home/vagrant/.rbenv/plugins/ruby-build ]; then
-        git clone -q https://github.com/rbenv/ruby-build.git /home/vagrant/.rbenv/plugins/ruby-build
-    fi
-
-    echo '==> Installing Ruby '$RUBY_VERSION
-
-    dnf module reset ruby -y &>/dev/null
-    dnf module enable ruby:"${RUBY_VERSION}" -y &>/dev/null
-    dnf install ruby ruby-devel -y &>/dev/null
-    mkdir -p "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin"
-    ln -sf "$(which ruby)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/ruby"
-    rbenv rehash
-    rbenv global "${RUBY_VERSION}-bin"
-
-    echo '==> Installing Ruby Gems: bundler & irb'
-
-    dnf install rubygem-bundler rubygem-irb -y &>/dev/null
-    ln -sf "$(which bundle)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/bundle"
-    ln -sf "$(which irb)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/irb"
-    rbenv rehash
-    chown -R vagrant:vagrant /home/vagrant/.rbenv
-
-fi
+dnf module reset ruby -y &>/dev/null
+dnf module enable ruby:"${RUBY_VERSION}" -y &>/dev/null
+dnf install ruby ruby-devel rubygem-irb -y &>/dev/null
 
 echo '==> Adding HTTP service to firewall'
 
@@ -150,6 +119,4 @@ httpd -V | head -n1 | cut -d ' ' -f 3-
 mysql -V
 php -v | head -n1
 python3 --version
-if [ $RUBY_VERSION ]; then
-    ruby -v
-fi
+ruby -v

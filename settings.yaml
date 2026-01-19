@@ -31,6 +31,4 @@
     :destination: ~/.gitconfig
 
 :php_error_reporting: E_ALL & ~E_NOTICE & ~E_DEPRECATED
-
-# :ruby_version: 3.3
 ...

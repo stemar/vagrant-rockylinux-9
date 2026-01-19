@@ -8,13 +8,14 @@
 
 ### Changed
 
-- Updated Ruby to 3.3.
-- Changed the way to install Ruby:
-    - Replaced download and make with `dnf install`.
+- Made Ruby installation by default.
+    - Reverted to default Ruby version.
+- Replaced download and make with `dnf install`.
 
 ### Removed
 
 - Deleted `config/gemrc` file.
+- Removed rbenv and bundler.
 
 ## 1.0.3 - 2026-01-16
 

@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Changed Adminer theme.
 - Made Ruby installation by default.
     - Reverted to default Ruby version.
 - Replaced download and make with `dnf install`.

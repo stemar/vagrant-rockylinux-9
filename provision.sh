@@ -101,7 +101,6 @@ if [ $RUBY_VERSION ]; then
     ln -sf "$(which ruby)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/ruby"
     rbenv rehash
     rbenv global "${RUBY_VERSION}-bin"
-    chown -R vagrant:vagrant /home/vagrant/.rbenv
 
     echo '==> Installing Ruby Gems: bundler & irb'
 
@@ -109,6 +108,7 @@ if [ $RUBY_VERSION ]; then
     ln -sf "$(which bundle)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/bundle"
     ln -sf "$(which irb)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/irb"
     rbenv rehash
+    chown -R vagrant:vagrant /home/vagrant/.rbenv
 
 fi
 

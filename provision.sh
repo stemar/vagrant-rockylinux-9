@@ -77,8 +77,6 @@ sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/adminer.conf
 
 echo '==> Installing Ruby & irb'
 
-dnf module reset ruby -y &>/dev/null
-dnf module enable ruby:"${RUBY_VERSION}" -y &>/dev/null
 dnf install ruby ruby-devel rubygem-irb -y &>/dev/null
 
 echo '==> Adding HTTP service to firewall'

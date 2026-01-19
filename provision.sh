@@ -80,7 +80,6 @@ if [ $RUBY_VERSION ]; then
     echo '==> Installing rbenv'
 
     dnf -q -y install gem gnupg2 zlib zlib-devel gcc-c++ patch readline readline-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison tar sqlite-devel &>/dev/null
-
     if [ ! -d /home/vagrant/.rbenv ]; then
         git clone -q https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
     fi

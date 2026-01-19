@@ -80,6 +80,7 @@ if [ $RUBY_VERSION ]; then
     echo '==> Installing rbenv'
 
     dnf -q -y install gem gnupg2 zlib zlib-devel gcc-c++ patch readline readline-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison tar sqlite-devel &>/dev/null
+
     if [ ! -d /home/vagrant/.rbenv ]; then
         git clone -q https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
     fi
@@ -92,19 +93,23 @@ if [ $RUBY_VERSION ]; then
         git clone -q https://github.com/rbenv/ruby-build.git /home/vagrant/.rbenv/plugins/ruby-build
     fi
 
-    echo '==> Installing Ruby version '$RUBY_VERSION
+    echo '==> Installing Ruby '$RUBY_VERSION
 
-    {
-        rbenv install -s $RUBY_VERSION
-        rbenv global $RUBY_VERSION
-    } &>/dev/null
+    dnf module reset ruby -y &>/dev/null
+    dnf module enable ruby:"${RUBY_VERSION}" -y &>/dev/null
+    dnf install ruby ruby-devel -y &>/dev/null
+    mkdir -p "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin"
+    ln -sf "$(which ruby)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/ruby"
+    rbenv rehash
+    rbenv global "${RUBY_VERSION}-bin"
     chown -R vagrant:vagrant /home/vagrant/.rbenv
 
-    echo '==> Installing Bundler'
+    echo '==> Installing Ruby Gems: bundler & irb'
 
-    cp /vagrant/config/gemrc /home/vagrant/.gemrc
-    chown vagrant:vagrant /home/vagrant/.gemrc
-    gem install -q --silent bundler
+    dnf install rubygem-bundler rubygem-irb -y &>/dev/null
+    ln -sf "$(which bundle)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/bundle"
+    ln -sf "$(which irb)" "$(rbenv root)/versions/${RUBY_VERSION}-bin/bin/irb"
+    rbenv rehash
 
 fi
 

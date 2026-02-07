@@ -1,4 +1,4 @@
 export HISTCONTROL=ignoreboth:erasedups
 export PS1="[\u@\H \w]$ "
-alias ll="ls -lAFh --group-directories-first"
+alias ll="LC_ALL=C ls -lAFh --group-directories-first --color=auto"
 alias nano="nano -cw"

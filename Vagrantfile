@@ -33,7 +33,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "provision.sh", env: {
     "HOST_HTTP_PORT"      => host_http_port,
     "GUEST_SYNCED_FOLDER" => guest_synced_folder,
-    "PHP_ERROR_REPORTING" => settings[:php_error_reporting],
     "TIMEZONE"            => settings[:machine][:timezone]
   }
 end
